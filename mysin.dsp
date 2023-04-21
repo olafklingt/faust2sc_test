@@ -1,4 +1,3 @@
 import("stdfaust.lib");
-
-process = os.osc(440) * vslider("Volume[style:knob][acc: 0 0 -10 0 10]", 0.5, 0, 1, 0.1);
+process = os.osc(vslider("Volume[style:knob][acc: 0 0 -10 0 10]", 1000, 100, 10000, 1));
 
