@@ -16,14 +16,14 @@
           src = self;
           buildInputs = with pkgs; [ faust2sc ];
           buildPhase = ''
-            	  faust2sc mysin.dsp -o ./ -n 1 -s 
+            faust2sc mysin.dsp -o ./ -n 1 -s
           '';
           installPhase = ''
             mkdir $out
             cp -r HelpSource Classes *.so $out
           '';
         };
-        packages.testconfigfile = pkgs.writeScript "config.yaml" builtins.toJSON {
+        packages.testconfigfile = pkgs.writeScript "config.yaml" (builtins.toJSON {
           includePaths = [
             "${self.packages.${system}.default}"
             "${pkgs.supercollider}/share/SuperCollider/SCClassLibrary/"
@@ -31,10 +31,10 @@
           excludePaths = [ ];
           postInlineWarnings = false;
           excludeDefaultPaths = true;
-        };
+        });
         packages.scd = pkgs.writeScript "run.scd" ''
           	s.waitForBoot{
-          		{Mysin.ar*0.1}.play
+                  {Mysin.ar*0.01}.play
           	}
           	'';
         packages.test = pkgs.writeShellApplication {
